@@ -1,0 +1,162 @@
+[gd_scene load_steps=9 format=1]
+
+[ext_resource path="res://scripts/missile.gd" type="Script" id=1]
+[ext_resource path="res://sprites/fire.png" type="Texture" id=2]
+[ext_resource path="res://sounds/exp.wav" type="Sample" id=3]
+[ext_resource path="res://sounds/thrust.wav" type="Sample" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 2, 8 )
+
+[sub_resource type="ColorRamp" id=2]
+
+offsets = FloatArray( 0.00380228, 0.159696, 0.372624, 0.992395 )
+colors = ColorArray( 1, 1, 1, 1, 1, 0.914062, 0, 0.846154, 1, 0.12549, 0, 0.683878, 1, 0.12549, 0, 0 )
+
+[sub_resource type="ColorRamp" id=3]
+
+offsets = FloatArray( 0, 1 )
+colors = ColorArray( 0.12549, 0.12549, 0.12549, 1, 0.12549, 0.12549, 0.12549, 0 )
+
+[sub_resource type="SampleLibrary" id=4]
+
+samples/exp = { "db":0.0, "pitch":1.0, "sample":ExtResource( 3 ) }
+samples/thrust = { "db":0.0, "pitch":1.0, "sample":ExtResource( 4 ) }
+
+[node name="Misslie" type="KinematicBody2D"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+script/script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+transform/scale = Vector2( 1, 10 )
+texture = ExtResource( 2 )
+
+[node name="FireParticles" type="Particles2D" parent="."]
+
+transform/scale = Vector2( 1, 10 )
+config/amount = 1024
+config/lifetime = 1.0
+config/offset = Vector2( 0, 0.5 )
+config/half_extents = Vector2( 1, 0 )
+config/local_space = false
+config/texture = ExtResource( 2 )
+params/direction = 0.0
+params/spread = 10.0
+params/linear_velocity = 50.0
+params/spin_velocity = 100.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 9.8
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 1.0
+params/final_size = 0.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+randomness/spread = 1.0
+randomness/linear_velocity = 1.0
+randomness/spin_velocity = 1.0
+randomness/initial_size = 1.0
+color/color = Color( 0.863281, 0.20544, 0.0977936, 1 )
+color/color_ramp = SubResource( 2 )
+
+[node name="BlackParticles" type="Particles2D" parent="."]
+
+transform/scale = Vector2( 1, 10 )
+config/amount = 64
+config/lifetime = 1.0
+config/offset = Vector2( 0, 0.5 )
+config/half_extents = Vector2( 1, 0 )
+config/local_space = false
+config/texture = ExtResource( 2 )
+params/direction = 0.0
+params/spread = 2.5
+params/linear_velocity = 50.0
+params/spin_velocity = 100.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 9.8
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 1.0
+params/final_size = 0.0
+params/hue_variation = 1.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+randomness/spread = 1.0
+randomness/linear_velocity = 1.0
+randomness/spin_velocity = 1.0
+randomness/initial_size = 1.0
+color/color = Color( 0, 0, 0, 1 )
+color/color_ramp = SubResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Explosion" type="Particles2D" parent="."]
+
+config/amount = 1024
+config/lifetime = 1.0
+config/emit_timeout = 1.0
+config/emitting = false
+config/local_space = false
+config/explosiveness = 0.1
+config/texture = ExtResource( 2 )
+params/direction = 0.0
+params/spread = 180.0
+params/linear_velocity = 100.0
+params/spin_velocity = 100.0
+params/orbit_velocity = 2.5
+params/gravity_direction = 0.0
+params/gravity_strength = 9.8
+params/radial_accel = 64.0
+params/tangential_accel = -64.0
+params/damping = 128.0
+params/initial_angle = 360.0
+params/initial_size = 5.0
+params/final_size = 0.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 0.0
+params/anim_initial_pos = 0.0
+randomness/spread = 1.0
+randomness/linear_velocity = 1.0
+randomness/spin_velocity = 1.0
+randomness/orbit_velocity = 1.0
+randomness/radial_accel = 1.0
+randomness/tangential_accel = 1.0
+randomness/damping = 1.0
+randomness/initial_angle = 1.0
+randomness/initial_size = 1.0
+color/color = Color( 0.863281, 0.20544, 0.0977936, 1 )
+color/color_ramp = SubResource( 2 )
+
+[node name="SamplePlayer2D" type="SamplePlayer2D" parent="."]
+
+params/volume_db = -8.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 0.0
+params/attenuation/max_distance = 1024.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 4 )
+config/pitch_random = 0.25
+
+
